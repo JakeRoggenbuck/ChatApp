@@ -30,12 +30,11 @@
   </style>
   <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
   <script>
-
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
-    var pusher = new Pusher('deca7a171714c942501e', {
-      cluster: 'us3'
+    var pusher = new Pusher("key", {
+      cluster: "us3"
     });
 
     var channel = pusher.subscribe('my-channel');

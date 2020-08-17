@@ -1,11 +1,12 @@
 import pusher
+import config
 
 
 pusher_client = pusher.Pusher(
-  app_id=u'1055958',
-  key=u'deca7a171714c942501e',
-  secret=u'c2cf232b80b2a8f7106c',
-  cluster=u'us3'
+  app_id=config.app_id,
+  key=config.key,
+  secret=config.secret,
+  cluster=config.cluster
 )
 
 
