@@ -30,15 +30,17 @@
   </style>
   <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
   <script>
-    // Enable pusher logging - don't include this in production
+	// Add key from pusher before use
     Pusher.logToConsole = true;
 
     var pusher = new Pusher("key", {
       cluster: "us3"
     });
 
+	// Get data from channe;
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function(data) {
+		// Create all div
 		var all = document.createElement("div");
 		var xib = document.createElement("div");
 		xib.setAttribute('class', 'message_text_top');
@@ -46,7 +48,7 @@
 		var xibtwo = document.createElement("div");
 		xibtwo.setAttribute('class', 'message_text_center');
 	
-
+		// Create content
 		var content = document.createElement("h1");
 		content.setAttribute('class', 'content');
 		var author = document.createElement("h1");
@@ -54,12 +56,14 @@
 		var time = document.createElement("h1");
 		time.setAttribute('class', 'time');
 
+		// Get content
 		var nodeContent = document.createTextNode(data["Content"]);
 		var nodeAuthor = document.createTextNode(data["Author"]);
 		var nodeTime = document.createTextNode(data["Time"]);
 		
 		var elementEntrys = document.getElementById("all");
 
+		// Add nodes to elements
 		content.appendChild(nodeContent);
 		author.appendChild(nodeAuthor);
 		time.appendChild(nodeTime);
@@ -68,10 +72,12 @@
 		xib.appendChild(time);
 		xibtwo.appendChild(content);
 		
+		// Add all elements to 'all'
 		all.appendChild(xib);
 		all.appendChild(xibtwo);
 		elementEntrys.appendChild(all);
 
+		// Scroll down
 		var chatHistory = document.getElementById("all");
 		chatHistory.scrollTop = chatHistory.scrollHeight;
     });
@@ -101,6 +107,7 @@
 		<input type="submit" value="Submit">
 	</form>
 	<script>
+		// Scroll down on load
 		var chatHistory = document.getElementById("all");
 		chatHistory.scrollTop = chatHistory.scrollHeight;
 	</script>
