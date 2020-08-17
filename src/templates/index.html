@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <style>
+  .message_text_top {
+      width: 90%;
+  }
+  .message_text_center {
+      width: 90%;
+      background-color: #21a6f6;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-bottom: 2px;
+      padding-top: 2px;
+      border-radius: 25px;
+  }
+  .author {
+      font-size: 15px;
+      position: relative;
+      top: 34px;
+      right: -20px;
+  }
+  .time {
+      font-size: 15px;
+      position: relative;
+      top: 8px;
+      left: -20px;
+      text-align: right;
+  }
+  </style>
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('deca7a171714c942501e', {
+      cluster: 'us3'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+		var all = document.createElement("div");
+		var xib = document.createElement("div");
+		xib.setAttribute('class', 'message_text_top');
+		
+		var xibtwo = document.createElement("div");
+		xibtwo.setAttribute('class', 'message_text_center');
+	
+
+		var content = document.createElement("h1");
+		content.setAttribute('class', 'content');
+		var author = document.createElement("h1");
+		author.setAttribute('class', 'author');
+		var time = document.createElement("h1");
+		time.setAttribute('class', 'time');
+
+		var nodeContent = document.createTextNode(data["Content"]);
+		var nodeAuthor = document.createTextNode(data["Author"]);
+		var nodeTime = document.createTextNode(data["Time"]);
+		
+		var elementEntrys = document.getElementById("all");
+
+		content.appendChild(nodeContent);
+		author.appendChild(nodeAuthor);
+		time.appendChild(nodeTime);
+		
+		xib.appendChild(author);
+		xib.appendChild(time);
+		xibtwo.appendChild(content);
+		
+		all.appendChild(xib);
+		all.appendChild(xibtwo);
+		elementEntrys.appendChild(all);
+
+		var chatHistory = document.getElementById("all");
+		chatHistory.scrollTop = chatHistory.scrollHeight;
+    });
+  </script>
+</head>
+<body>
+  <h1>Pusher Test</h1>
+  	<div id="all" style="height:600px;width:100%;border:0px solid #4e4e4e;font:16px Arial, Serif;overflow:auto;">
+	 {% for message in result %}
+	 <div>
+	   <div class='message_text_top'>
+		 <h1 class='author'>{{ message[2] }}</h1>
+		 <h1 class='time'>{{ message[3] }}</h1>
+	   </div>
+	   <div class='message_text_center'>
+		   <h1 class='content'>{{ message[1] }}</h1>
+       </div>
+     </div>
+	 {% endfor %}
+	</div>
+	<br>
+	<form method="POST">
+		<label for="content">Content:</label>
+		<input name="content"><br><br>
+		<label for="author">Author:</label>
+		<input name="author"><br><br>
+		<input type="submit" value="Submit">
+	</form>
+	<script>
+		var chatHistory = document.getElementById("all");
+		chatHistory.scrollTop = chatHistory.scrollHeight;
+	</script>
+</body>
