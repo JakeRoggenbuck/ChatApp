@@ -24,10 +24,11 @@ def new_short_post():
     # Get elements
     content = request.form['content']
     author = request.form['author']
-    # Make message object
-    message = Message(content, author)
-    # Write object to db and push it
-    message.write()
+    if content != "" and author != "":
+        # Make message object
+        message = Message(content, author)
+        # Write object to db and push it
+        message.write()
     # Get all messages
     messages = DATABASE.read_all()
     # Send back to main page with new message
