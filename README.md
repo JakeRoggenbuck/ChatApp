@@ -1,4 +1,5 @@
 # ChatApp
+Realtime chat app using pusher
 
 # Running
 ```
